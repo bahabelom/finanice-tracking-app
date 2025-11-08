@@ -37,22 +37,22 @@ function ExpenseForm({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 overflow-y-auto">
-      <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-6 my-8">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 overflow-y-auto">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 my-8 border-2 border-slate-200">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Track Daily Expense</h2>
+          <h2 className="text-2xl font-bold text-slate-800">Track Daily Expense</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg p-1 transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Project *
               </label>
               <select
@@ -60,7 +60,7 @@ function ExpenseForm({
                 onChange={(e) => {
                   setFormData({ ...formData, projectId: e.target.value, budgetId: '' });
                 }}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 font-medium"
                 required
               >
                 <option value="">Select a project</option>
@@ -73,13 +73,13 @@ function ExpenseForm({
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Budget *
               </label>
               <select
                 value={formData.budgetId}
                 onChange={(e) => setFormData({ ...formData, budgetId: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 font-medium disabled:bg-slate-100 disabled:text-slate-500"
                 required
                 disabled={!formData.projectId}
               >
@@ -95,7 +95,7 @@ function ExpenseForm({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Amount *
               </label>
               <input
@@ -104,19 +104,19 @@ function ExpenseForm({
                 min="0"
                 value={formData.amount}
                 onChange={(e) => setFormData({ ...formData, amount: parseFloat(e.target.value) || 0 })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-800 font-medium"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Currency *
               </label>
               <select
                 value={formData.currencyId}
                 onChange={(e) => setFormData({ ...formData, currencyId: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 font-medium"
                 required
               >
                 <option value="">Select a currency</option>
@@ -130,66 +130,66 @@ function ExpenseForm({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
               Description *
             </label>
             <textarea
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-800 font-medium"
               rows={3}
               required
             />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-semibold text-slate-700 mb-2">
               Date of Expense *
             </label>
             <input
               type="date"
               value={formData.date}
               onChange={(e) => setFormData({ ...formData, date: e.target.value })}
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-800 font-medium"
               required
             />
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Requested By *
               </label>
               <input
                 type="text"
                 value={formData.requestedBy}
                 onChange={(e) => setFormData({ ...formData, requestedBy: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-800 font-medium"
                 required
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Approved By
               </label>
               <input
                 type="text"
                 value={formData.approvedBy}
                 onChange={(e) => setFormData({ ...formData, approvedBy: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-800 font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
                 Authorized By
               </label>
               <input
                 type="text"
                 value={formData.authorizedBy}
                 onChange={(e) => setFormData({ ...formData, authorizedBy: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 text-slate-800 font-medium"
               />
             </div>
           </div>
@@ -198,13 +198,13 @@ function ExpenseForm({
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+              className="flex-1 px-4 py-3 border-2 border-slate-300 rounded-lg font-semibold text-slate-700 hover:bg-slate-50 transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
-              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="flex-1 px-4 py-3 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/30"
             >
               Add Expense
             </button>
@@ -237,79 +237,79 @@ function ExpenseViewModal({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl max-w-2xl w-full p-6">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full p-6 border-2 border-slate-200">
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-2xl font-bold text-gray-900">Expense Details</h2>
+          <h2 className="text-2xl font-bold text-slate-800">Expense Details</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 transition-colors"
+            className="text-slate-500 hover:text-slate-700 hover:bg-slate-100 rounded-lg p-1 transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
-        <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+        <div className="space-y-5">
+          <div className="grid grid-cols-2 gap-5">
             <div>
-              <label className="text-sm font-medium text-gray-500">Project</label>
-              <p className="text-gray-900 font-semibold">{project?.name || 'N/A'}</p>
+              <label className="text-sm font-semibold text-slate-600">Project</label>
+              <p className="text-slate-900 font-bold text-lg mt-1">{project?.name || 'N/A'}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Amount</label>
-              <p className="text-gray-900 font-semibold">
+              <label className="text-sm font-semibold text-slate-600">Amount</label>
+              <p className="text-slate-900 font-bold text-lg mt-1">
                 {currency?.symbol}{expense.amount.toLocaleString()} {currency?.code}
               </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Date</label>
-              <p className="text-gray-900">{format(new Date(expense.date), 'MMM dd, yyyy')}</p>
+              <label className="text-sm font-semibold text-slate-600">Date</label>
+              <p className="text-slate-800 font-medium mt-1">{format(new Date(expense.date), 'MMM dd, yyyy')}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Status</label>
-              <p className={`font-semibold ${
-                expense.status === 'authorized' ? 'text-green-600' :
-                expense.status === 'approved' ? 'text-blue-600' :
-                expense.status === 'rejected' ? 'text-red-600' :
-                'text-yellow-600'
+              <label className="text-sm font-semibold text-slate-600">Status</label>
+              <p className={`font-bold text-lg mt-1 ${
+                expense.status === 'authorized' ? 'text-green-700' :
+                expense.status === 'approved' ? 'text-blue-700' :
+                expense.status === 'rejected' ? 'text-red-700' :
+                'text-yellow-700'
               }`}>
                 {expense.status.charAt(0).toUpperCase() + expense.status.slice(1)}
               </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-500">Requested By</label>
-              <p className="text-gray-900">{expense.requestedBy}</p>
+              <label className="text-sm font-semibold text-slate-600">Requested By</label>
+              <p className="text-slate-800 font-medium mt-1">{expense.requestedBy}</p>
             </div>
             {expense.approvedBy && (
               <div>
-                <label className="text-sm font-medium text-gray-500">Approved By</label>
-                <p className="text-gray-900">{expense.approvedBy}</p>
+                <label className="text-sm font-semibold text-slate-600">Approved By</label>
+                <p className="text-slate-800 font-medium mt-1">{expense.approvedBy}</p>
               </div>
             )}
             {expense.authorizedBy && (
               <div>
-                <label className="text-sm font-medium text-gray-500">Authorized By</label>
-                <p className="text-gray-900">{expense.authorizedBy}</p>
+                <label className="text-sm font-semibold text-slate-600">Authorized By</label>
+                <p className="text-slate-800 font-medium mt-1">{expense.authorizedBy}</p>
               </div>
             )}
           </div>
           <div>
-            <label className="text-sm font-medium text-gray-500">Description</label>
-            <p className="text-gray-900">{expense.description}</p>
+            <label className="text-sm font-semibold text-slate-600">Description</label>
+            <p className="text-slate-800 font-medium mt-1">{expense.description}</p>
           </div>
         </div>
 
-        <div className="flex gap-3 mt-6 pt-6 border-t">
+        <div className="flex gap-3 mt-8 pt-6 border-t-2 border-slate-200">
           <button
             onClick={handleExportExcel}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-lg font-semibold hover:from-green-700 hover:to-emerald-700 transition-all shadow-lg shadow-green-500/30"
           >
             <Download className="w-5 h-5" />
             Export to Excel
           </button>
           <button
             onClick={handleExportPDF}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-gradient-to-r from-red-600 to-rose-600 text-white rounded-lg font-semibold hover:from-red-700 hover:to-rose-700 transition-all shadow-lg shadow-red-500/30"
           >
             <FileText className="w-5 h-5" />
             Export to PDF
@@ -343,17 +343,19 @@ export default function ExpenseTracking() {
   );
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
+    <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-6">
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
-          <Receipt className="w-6 h-6 text-purple-600" />
-          <h2 className="text-2xl font-bold text-gray-900">Expenses</h2>
+          <div className="p-2 bg-purple-100 rounded-lg">
+            <Receipt className="w-6 h-6 text-purple-700" />
+          </div>
+          <h2 className="text-2xl font-bold text-slate-800">Expenses</h2>
         </div>
         <div className="flex items-center gap-3">
           <select
             value={filterProject}
             onChange={(e) => setFilterProject(e.target.value)}
-            className="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="px-4 py-2 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-slate-800 font-medium"
           >
             <option value="all">All Projects</option>
             {projects.map((project) => (
@@ -364,7 +366,7 @@ export default function ExpenseTracking() {
           </select>
           <button
             onClick={() => setIsFormOpen(true)}
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg font-semibold hover:from-blue-700 hover:to-indigo-700 transition-all shadow-lg shadow-blue-500/30"
           >
             <Plus className="w-5 h-5" />
             Add Expense
@@ -373,10 +375,10 @@ export default function ExpenseTracking() {
       </div>
 
       {expenses.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
-          <Receipt className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-          <p className="text-lg">No expenses tracked yet</p>
-          <p className="text-sm mt-2">Click "Add Expense" to get started</p>
+        <div className="text-center py-12">
+          <Receipt className="w-16 h-16 mx-auto mb-4 text-slate-300" />
+          <p className="text-lg font-medium text-slate-600">No expenses tracked yet</p>
+          <p className="text-sm mt-2 text-slate-500">Click "Add Expense" to get started</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -387,42 +389,42 @@ export default function ExpenseTracking() {
             return (
               <div
                 key={expense.id}
-                className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+                className="flex items-center justify-between p-5 border-2 border-slate-200 rounded-xl hover:border-purple-300 hover:shadow-lg bg-white transition-all"
               >
                 <div className="flex items-center gap-4 flex-1">
                   {expense.isLocked && (
-                    <Lock className="w-5 h-5 text-gray-400" />
+                    <Lock className="w-5 h-5 text-slate-500" />
                   )}
                   <div className="flex-1">
-                    <p className="font-medium text-gray-900">{expense.description}</p>
-                    <div className="flex items-center gap-3 mt-1 text-sm text-gray-500">
-                      <span>{projectName}</span>
-                      <span>•</span>
-                      <span>{format(new Date(expense.date), 'MMM dd, yyyy')}</span>
-                      <span>•</span>
-                      <span className={`font-medium ${
-                        expense.status === 'authorized' ? 'text-green-600' :
-                        expense.status === 'approved' ? 'text-blue-600' :
-                        expense.status === 'rejected' ? 'text-red-600' :
-                        'text-yellow-600'
+                    <p className="font-bold text-slate-800">{expense.description}</p>
+                    <div className="flex items-center gap-3 mt-2 text-sm">
+                      <span className="text-slate-600 font-medium">{projectName}</span>
+                      <span className="text-slate-400">•</span>
+                      <span className="text-slate-600">{format(new Date(expense.date), 'MMM dd, yyyy')}</span>
+                      <span className="text-slate-400">•</span>
+                      <span className={`font-semibold ${
+                        expense.status === 'authorized' ? 'text-green-700' :
+                        expense.status === 'approved' ? 'text-blue-700' :
+                        expense.status === 'rejected' ? 'text-red-700' :
+                        'text-yellow-700'
                       }`}>
                         {expense.status}
                       </span>
                     </div>
-                    <div className="flex items-center gap-4 mt-1 text-xs text-gray-400">
-                      <span>Requested by: {expense.requestedBy}</span>
-                      {expense.approvedBy && <span>• Approved by: {expense.approvedBy}</span>}
-                      {expense.authorizedBy && <span>• Authorized by: {expense.authorizedBy}</span>}
+                    <div className="flex items-center gap-4 mt-2 text-xs text-slate-500">
+                      <span className="font-medium">Requested by: <span className="text-slate-700">{expense.requestedBy}</span></span>
+                      {expense.approvedBy && <span>• Approved by: <span className="text-slate-700">{expense.approvedBy}</span></span>}
+                      {expense.authorizedBy && <span>• Authorized by: <span className="text-slate-700">{expense.authorizedBy}</span></span>}
                     </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
-                  <p className="text-lg font-bold text-red-600">
+                  <p className="text-xl font-bold text-red-700">
                     -{currencySymbol}{expense.amount.toLocaleString()}
                   </p>
                   <button
                     onClick={() => setViewingExpense(expense)}
-                    className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+                    className="p-2 text-slate-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
                     title="View and Export"
                   >
                     <Eye className="w-5 h-5" />

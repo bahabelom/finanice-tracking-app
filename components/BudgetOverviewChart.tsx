@@ -42,44 +42,44 @@ export default function BudgetOverviewChart() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6">
-      <h2 className="text-2xl font-bold text-gray-900 mb-6">Budget Overview</h2>
+    <div className="bg-white rounded-xl shadow-xl border border-slate-200 p-6 backdrop-blur-sm">
+      <h2 className="text-2xl font-bold text-slate-800 mb-6">Budget Overview</h2>
       
       {chartData.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
-          <DollarSign className="w-16 h-16 mx-auto mb-4 text-gray-300" />
-          <p className="text-lg">No budget data available</p>
-          <p className="text-sm mt-2">Add projects and budgets to see the overview</p>
+        <div className="text-center py-12">
+          <DollarSign className="w-16 h-16 mx-auto mb-4 text-slate-300" />
+          <p className="text-lg font-medium text-slate-600">No budget data available</p>
+          <p className="text-sm mt-2 text-slate-500">Add projects and budgets to see the overview</p>
         </div>
       ) : (
         <>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+            <div className="p-5 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl border-2 border-green-200 shadow-md hover:shadow-lg transition-shadow">
               <div className="flex items-center gap-2 mb-2">
-                <DollarSign className="w-5 h-5 text-green-600" />
-                <h3 className="font-semibold text-gray-700">Remaining Budget</h3>
+                <DollarSign className="w-6 h-6 text-green-700" />
+                <h3 className="font-semibold text-slate-800">Remaining Budget</h3>
               </div>
-              <p className="text-2xl font-bold text-green-600">{formatCurrency(totalRemaining)}</p>
+              <p className="text-3xl font-bold text-green-700">{formatCurrency(totalRemaining)}</p>
             </div>
             
-            <div className="p-4 bg-red-50 rounded-lg border border-red-200">
+            <div className="p-5 bg-gradient-to-br from-red-50 to-rose-50 rounded-xl border-2 border-red-200 shadow-md hover:shadow-lg transition-shadow">
               <div className="flex items-center gap-2 mb-2">
-                <TrendingDown className="w-5 h-5 text-red-600" />
-                <h3 className="font-semibold text-gray-700">Total Expenses</h3>
+                <TrendingDown className="w-6 h-6 text-red-700" />
+                <h3 className="font-semibold text-slate-800">Total Expenses</h3>
               </div>
-              <p className="text-2xl font-bold text-red-600">{formatCurrency(totalExpenses)}</p>
+              <p className="text-3xl font-bold text-red-700">{formatCurrency(totalExpenses)}</p>
             </div>
             
-            <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+            <div className="p-5 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border-2 border-blue-200 shadow-md hover:shadow-lg transition-shadow">
               <div className="flex items-center gap-2 mb-2">
-                <AlertCircle className="w-5 h-5 text-blue-600" />
-                <h3 className="font-semibold text-gray-700">Contingency Budget</h3>
+                <AlertCircle className="w-6 h-6 text-blue-700" />
+                <h3 className="font-semibold text-slate-800">Contingency Budget</h3>
               </div>
-              <p className="text-2xl font-bold text-blue-600">{formatCurrency(contingencyBudget)}</p>
+              <p className="text-3xl font-bold text-blue-700">{formatCurrency(contingencyBudget)}</p>
             </div>
           </div>
 
-          <div className="h-80 mb-6">
+          <div className="h-80 mb-6 bg-slate-50 rounded-lg p-4 border border-slate-200">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -98,26 +98,27 @@ export default function BudgetOverviewChart() {
                 </Pie>
                 <Tooltip 
                   formatter={(value: number) => formatCurrency(value)}
+                  contentStyle={{ backgroundColor: '#fff', border: '1px solid #e2e8f0', borderRadius: '8px' }}
                 />
-                <Legend />
+                <Legend wrapperStyle={{ color: '#1e293b', fontWeight: '500' }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
 
           {projectBreakdown.length > 0 && (
             <div className="mt-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Project-Wise Budget Overview</h3>
+              <h3 className="text-lg font-semibold text-slate-800 mb-4">Project-Wise Budget Overview</h3>
               <div className="space-y-2">
                 {projectBreakdown.map((project) => (
-                  <div key={project.projectId} className="p-3 bg-gray-50 rounded-lg">
+                  <div key={project.projectId} className="p-4 bg-slate-50 rounded-lg border border-slate-200 hover:bg-slate-100 transition-colors">
                     <div className="flex items-center justify-between">
-                      <span className="font-medium text-gray-900">{project.projectName}</span>
+                      <span className="font-semibold text-slate-800">{project.projectName}</span>
                       <div className="flex items-center gap-4 text-sm">
-                        <span className="text-gray-600">
-                          Expenses: <span className="font-semibold text-red-600">{formatCurrency(project.totalExpenses)}</span>
+                        <span className="text-slate-600">
+                          Expenses: <span className="font-bold text-red-700">{formatCurrency(project.totalExpenses)}</span>
                         </span>
-                        <span className="text-gray-600">
-                          Remaining: <span className={`font-semibold ${project.remainingBudget >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                        <span className="text-slate-600">
+                          Remaining: <span className={`font-bold ${project.remainingBudget >= 0 ? 'text-green-700' : 'text-red-700'}`}>
                             {formatCurrency(project.remainingBudget)}
                           </span>
                         </span>
