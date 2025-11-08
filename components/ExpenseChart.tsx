@@ -20,7 +20,7 @@ export default function ExpenseChart() {
     const category = categories.find(cat => cat.name === name);
     return {
       name,
-      value: parseFloat(value.toFixed(2)),
+      value: parseFloat((value as number).toFixed(2)),
       color: category?.color || '#64748b',
     };
   });
@@ -47,7 +47,10 @@ export default function ExpenseChart() {
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percent }: { name: string; percent: number }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+            label={(props: any) => {
+              const { name, percent } = props;
+              return `${name}: ${(percent * 100).toFixed(0)}%`;
+            }}
             outerRadius={100}
             fill="#8884d8"
             dataKey="value"
