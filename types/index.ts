@@ -1,12 +1,43 @@
 export type TransactionType = 'income' | 'expense';
 
-export interface Transaction {
+export interface Currency {
   id: string;
-  description: string;
+  code: string;
+  name: string;
+  symbol: string;
+  isDefault?: boolean;
+}
+
+export interface Project {
+  id: string;
+  name: string;
+  description?: string;
+  createdAt: string;
+}
+
+export interface Budget {
+  id: string;
+  projectId: string;
   amount: number;
-  type: TransactionType;
-  category: string;
+  currencyId: string;
+  description?: string;
+  createdAt: string;
+}
+
+export interface Expense {
+  id: string;
+  projectId: string;
+  budgetId: string;
+  amount: number;
+  currencyId: string;
+  description: string;
   date: string;
+  requestedBy: string;
+  approvedBy?: string;
+  authorizedBy?: string;
+  status: 'pending' | 'approved' | 'authorized' | 'rejected';
+  createdAt: string;
+  isLocked: boolean; // Once expense is made, it cannot be edited
 }
 
 export interface Category {
@@ -15,6 +46,11 @@ export interface Category {
   type: TransactionType;
   color: string;
 }
+
+export const DEFAULT_CURRENCIES: Currency[] = [
+  { id: 'usd', code: 'USD', name: 'US Dollar', symbol: '$', isDefault: true },
+  { id: 'birr', code: 'ETB', name: 'Ethiopian Birr', symbol: 'Br', isDefault: false },
+];
 
 export const DEFAULT_CATEGORIES: Category[] = [
   // Income categories
