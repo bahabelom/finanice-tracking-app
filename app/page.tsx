@@ -6,9 +6,10 @@ import ExpenseTracking from '@/components/ExpenseTracking';
 import BudgetManagement from '@/components/BudgetManagement';
 import ProjectManagement from '@/components/ProjectManagement';
 import CurrencyManagement from '@/components/CurrencyManagement';
-import { Receipt, DollarSign, FolderOpen, Coins, LayoutDashboard } from 'lucide-react';
+import ProjectStaffManagement from '@/components/ProjectStaffManagement';
+import { Receipt, DollarSign, FolderOpen, Coins, LayoutDashboard, Users } from 'lucide-react';
 
-type TabType = 'dashboard' | 'expenses' | 'budgets' | 'projects' | 'currencies';
+type TabType = 'dashboard' | 'expenses' | 'budgets' | 'projects' | 'currencies' | 'staff';
 
 export default function Dashboard() {
   const [activeTab, setActiveTab] = useState<TabType>('dashboard');
@@ -18,6 +19,7 @@ export default function Dashboard() {
     { id: 'expenses' as TabType, label: 'Expenses', icon: Receipt },
     { id: 'budgets' as TabType, label: 'Budgets', icon: DollarSign },
     { id: 'projects' as TabType, label: 'Projects', icon: FolderOpen },
+    { id: 'staff' as TabType, label: 'Project Staff', icon: Users },
     { id: 'currencies' as TabType, label: 'Currencies', icon: Coins },
   ];
 
@@ -67,6 +69,10 @@ export default function Dashboard() {
         
         {activeTab === 'projects' && (
           <ProjectManagement />
+        )}
+        
+        {activeTab === 'staff' && (
+          <ProjectStaffManagement />
         )}
         
         {activeTab === 'currencies' && (

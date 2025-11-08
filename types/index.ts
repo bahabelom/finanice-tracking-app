@@ -40,6 +40,17 @@ export interface Expense {
   isLocked: boolean; // Once expense is made, it cannot be edited
 }
 
+export interface ProjectStaff {
+  id: string;
+  fullName: string;
+  dutyBaseZone: string;
+  dutyBaseWereda: string;
+  phone: string;
+  email: string;
+  projectId: string; // Assigned project
+  createdAt: string;
+}
+
 export interface Category {
   id: string;
   name: string;

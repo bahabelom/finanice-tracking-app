@@ -1,7 +1,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Project, Budget, Currency, Expense, DEFAULT_CURRENCIES } from '@/types';
+import { Project, Budget, Currency, Expense, ProjectStaff, DEFAULT_CURRENCIES } from '@/types';
 
 interface FinancialContextType {
   // Projects
@@ -39,6 +39,13 @@ interface FinancialContextType {
   // Dashboard calculations
   getTotalRemainingBudget: () => number;
   getTotalContingencyBudget: () => number;
+  
+  // Project Staff
+  projectStaff: ProjectStaff[];
+  addProjectStaff: (staff: Omit<ProjectStaff, 'id' | 'createdAt'>) => void;
+  updateProjectStaff: (id: string, staff: Partial<ProjectStaff>) => void;
+  deleteProjectStaff: (id: string) => void;
+  getProjectStaffByProject: (projectId: string) => ProjectStaff[];
 }
 
 const FinancialContext = createContext<FinancialContextType | undefined>(undefined);
@@ -48,6 +55,7 @@ export function FinancialProvider({ children }: { children: ReactNode }) {
   const [budgets, setBudgets] = useState<Budget[]>([]);
   const [currencies, setCurrencies] = useState<Currency[]>(DEFAULT_CURRENCIES);
   const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [projectStaff, setProjectStaff] = useState<ProjectStaff[]>([]);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -55,6 +63,7 @@ export function FinancialProvider({ children }: { children: ReactNode }) {
     const savedBudgets = localStorage.getItem('financial-budgets');
     const savedCurrencies = localStorage.getItem('financial-currencies');
     const savedExpenses = localStorage.getItem('financial-expenses');
+    const savedProjectStaff = localStorage.getItem('financial-project-staff');
     
     if (savedProjects) {
       setProjects(JSON.parse(savedProjects));
@@ -67,6 +76,9 @@ export function FinancialProvider({ children }: { children: ReactNode }) {
     }
     if (savedExpenses) {
       setExpenses(JSON.parse(savedExpenses));
+    }
+    if (savedProjectStaff) {
+      setProjectStaff(JSON.parse(savedProjectStaff));
     }
   }, []);
 
@@ -87,6 +99,10 @@ export function FinancialProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('financial-expenses', JSON.stringify(expenses));
   }, [expenses]);
 
+  useEffect(() => {
+    localStorage.setItem('financial-project-staff', JSON.stringify(projectStaff));
+  }, [projectStaff]);
+
   // Project functions
   const addProject = (project: Omit<Project, 'id' | 'createdAt'>) => {
     const newProject: Project = {
@@ -105,9 +121,10 @@ export function FinancialProvider({ children }: { children: ReactNode }) {
 
   const deleteProject = (id: string) => {
     setProjects((prev) => prev.filter((p) => p.id !== id));
-    // Also delete associated budgets and expenses
+    // Also delete associated budgets, expenses, and staff
     setBudgets((prev) => prev.filter((b) => b.projectId !== id));
     setExpenses((prev) => prev.filter((e) => e.projectId !== id));
+    setProjectStaff((prev) => prev.filter((s) => s.projectId !== id));
   };
 
   // Budget functions
@@ -240,6 +257,30 @@ export function FinancialProvider({ children }: { children: ReactNode }) {
     return getTotalRemainingBudget();
   };
 
+  // Project Staff functions
+  const addProjectStaff = (staff: Omit<ProjectStaff, 'id' | 'createdAt'>) => {
+    const newStaff: ProjectStaff = {
+      ...staff,
+      id: Date.now().toString(),
+      createdAt: new Date().toISOString(),
+    };
+    setProjectStaff((prev) => [...prev, newStaff]);
+  };
+
+  const updateProjectStaff = (id: string, updates: Partial<ProjectStaff>) => {
+    setProjectStaff((prev) =>
+      prev.map((s) => (s.id === id ? { ...s, ...updates } : s))
+    );
+  };
+
+  const deleteProjectStaff = (id: string) => {
+    setProjectStaff((prev) => prev.filter((s) => s.id !== id));
+  };
+
+  const getProjectStaffByProject = (projectId: string) => {
+    return projectStaff.filter((s) => s.projectId === projectId);
+  };
+
   return (
     <FinancialContext.Provider
       value={{
@@ -269,6 +310,11 @@ export function FinancialProvider({ children }: { children: ReactNode }) {
         getRemainingBudgetByProject,
         getTotalRemainingBudget,
         getTotalContingencyBudget,
+        projectStaff,
+        addProjectStaff,
+        updateProjectStaff,
+        deleteProjectStaff,
+        getProjectStaffByProject,
       }}
     >
       {children}
