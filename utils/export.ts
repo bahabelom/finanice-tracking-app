@@ -128,7 +128,7 @@ export function exportExpensesToExcel(expenses: Expense[], projects: Project[], 
     worksheetData.push([
       expense.id,
       project?.name || 'N/A',
-      expense.amount,
+      expense.amount.toString(),
       currency?.code || 'N/A',
       expense.description,
       format(new Date(expense.date), 'MMM dd, yyyy'),
